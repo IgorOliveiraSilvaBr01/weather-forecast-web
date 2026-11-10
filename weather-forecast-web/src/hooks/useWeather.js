@@ -47,4 +47,6 @@ export function useWeather() {
     }
     fetchWeatherData();
   }, []);
+
+  return ( weatherData, loading, error )
 }
