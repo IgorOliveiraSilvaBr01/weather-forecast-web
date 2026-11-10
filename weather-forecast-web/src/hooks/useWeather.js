@@ -15,3 +15,9 @@ export const CITIES = [
   { query: "Sydney,AU", name: "Sydney" },
   { query: "Cairo,EG", name: "Cairo" },
 ];
+
+export function useWeather() {
+  const [weatherData, setWeatherData] = useState([]);
+  const [loading, setLoading] = useState([true]);
+  const [error, setError] = useState([null]);
+}
