@@ -20,4 +20,31 @@ export function useWeather() {
   const [weatherData, setWeatherData] = useState([]);
   const [loading, setLoading] = useState([true]);
   const [error, setError] = useState([null]);
+
+  useEffect(() => {
+    async function fetchWeatherData() {
+      try {
+        setLoading(true)
+        // requisicao http - get
+        const requests = CITIES.map(( city ) => 
+            api.get('/weather', { params: {q: city.query} })
+        )
+
+        // receber resposta webservice - openWeatherMap
+        const responses = await Promise.all(requests)
+
+        // declarando variável que obtenha os dados de cada codade
+        const data = responses.map(( res, index ) => ({
+            ...res.data,
+            name: CITIES[index].name
+        }))
+        setWeatherData(data)
+      } catch (err) {
+        setError('Erro ao carregar dados metereológicos.')
+      } finally {
+        setLoading(false)
+      }
+    }
+    fetchWeatherData();
+  }, []);
 }
